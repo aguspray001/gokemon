@@ -1,25 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { ApolloProvider } from "@apollo/client";
+
+// internal
+import Loader from "./components/atoms/Loader";
+import client from "graphql/client";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { StoreProvider } from "store/store";
+import Layout from "Layout";
+
+// dynamic import
+const PokemonDetailsPage = React.lazy(() =>
+  import("./pages/PokemonDetailsPage/PokemonDetailsPage")
+);
+const PokemonHomePage = React.lazy(() =>
+  import("./pages/PokemonHomePage/PokemonHomePage")
+);
+const MyPokemonPage = React.lazy(() =>
+  import("./pages/MyPokemonPage/MyPokemonPage")
+);
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ApolloProvider client={client}>
+      <StoreProvider>
+        <Router>
+          <Layout>
+            <Suspense fallback={<Loader />}>
+              <Routes>
+                <Route exact path="/" element={<PokemonHomePage />} />
+                <Route path="/pokemon/:name" element={<PokemonDetailsPage />} />
+                <Route path="/mypokemon" element={<MyPokemonPage />} />
+              </Routes>
+            </Suspense>
+            <ToastContainer />
+          </Layout>
+        </Router>
+      </StoreProvider>
+    </ApolloProvider>
   );
 }
 
