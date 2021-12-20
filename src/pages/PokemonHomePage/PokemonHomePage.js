@@ -2,9 +2,8 @@
 import { useQuery } from "@apollo/client";
 import { css } from "@emotion/react";
 import Loader from "components/atoms/Loader";
-import ScrollToTop from "components/atoms/ScrollToTop";
 import { POKEMON_LIST } from "graphql/query";
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { useAppContext } from "store/store";
 import Card from "../../components/atoms/Card";
 import { flex, flexCenter, flexCol } from "../../styles/utilities";
@@ -52,15 +51,6 @@ function PokemonHomePage() {
     })
   }
 
-  const scrollingToTop = () => {
-    const root = document.getElementById('root');
-    root.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth',
-    });
-  }
-
   if (!pokemons || !pokemons.results) return <Loader />;
 
   return (
@@ -85,14 +75,6 @@ function PokemonHomePage() {
       ]}
       
     >
-      <div css={css`
-        position: fixed;
-        bottom: 1rem;
-        right: 1rem;
-        z-index: 999999;
-      `}>
-        <ScrollToTop onClick={scrollingToTop}/>
-      </div>
       <div css={css`
         max-height: 100vh;
         display: flex;
