@@ -9,7 +9,7 @@ function Card({ number, name, imgSource, href, owned, cardType="default", nickna
         <Container>
           <Title>#{number} {name}</Title>
           <div css={ImageEffect}>
-            <img src={imgSource} alt={`pokemon-${name}`} loading="lazy"/>
+            <img width={100} height={100} src={imgSource} alt={`pokemon-${name}`}/>
           </div>
           <div css={cardInfo(cardType)}>
             {
