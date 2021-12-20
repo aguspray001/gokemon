@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 // external
 import { css } from "@emotion/react";
 // internal
-import imgc from "assets/images/bg-field.jpg";
+import bgField from "assets/images/bg-field.jpg";
 import ModalForm from "components/molecules/ModalForm";
 import { POKEMON_DETAIL } from "graphql/query";
 import React, { useState } from "react";
@@ -58,7 +58,7 @@ function PokemonDetailsPage() {
   if (loading) return <Loader />;
   
   return (
-    <div css={[field, css`background-image: url(${imgc});`,]}>
+    <div css={[field, css`background-image: url(${bgField});`,]}>
       <ModalForm 
         onShow={isCatched} 
         onRelease={releasePokemon} 

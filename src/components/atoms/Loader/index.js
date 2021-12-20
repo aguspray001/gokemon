@@ -18,6 +18,7 @@ function Loader() {
     >
       <img
         width={100}
+        height={100}
         css={ImageEffect}
         src={pokeBall}
         alt="pokeball-loader"

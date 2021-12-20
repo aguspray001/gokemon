@@ -14,7 +14,7 @@ function RecommendedCard({ number, name, imgSource, href, owned }) {
             #{number} {name}
           </Title>
           <div css={ImageEffect}>
-            <img src={imgSource} alt={`pokemon-${name}`} loading="lazy" />
+            <img src={imgSource} alt={`pokemon-${name}`} />
           </div>
           <CardInfo>Owned: {owned}</CardInfo>
           <div
