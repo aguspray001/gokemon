@@ -44,7 +44,7 @@ function Layout({ children }) {
           }
         }}
         onBlur={handleSubmitName}
-        value={username}
+        value={username || "Trainer"}
         isEdit={isEdit}
       />
       {children}
