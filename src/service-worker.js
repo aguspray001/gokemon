@@ -79,30 +79,30 @@ registerRoute(
   })
 );
 
-registerRoute(
-  ({ url }) => url.origin.includes("graphql-pokeapi.vercel.app"),
-  new NetworkFirst({
-    cacheName: "apidata",
-    plugins: [
-      new ExpirationPlugin({
-        maxAgeSeconds: 360,
-        maxEntries: 30,
-      }),
-    ],
-  })
-);
+// registerRoute(
+//   ({ url }) => url.origin.includes("graphql-pokeapi.vercel.app"),
+//   new NetworkFirst({
+//     cacheName: "apidata",
+//     plugins: [
+//       new ExpirationPlugin({
+//         maxAgeSeconds: 360,
+//         maxEntries: 30,
+//       }),
+//     ],
+//   })
+// );
 
-registerRoute(
-  ({ url }) => /\.(jpe?g|png)$/i.test(url.pathname),
-  new StaleWhileRevalidate({
-    cacheName: "apiimage",
-    plugins: [
-      new ExpirationPlugin({
-        maxEntries: 30,
-      }),
-    ],
-  })
-);
+// registerRoute(
+//   ({ url }) => /\.(jpe?g|png)$/i.test(url.pathname),
+//   new StaleWhileRevalidate({
+//     cacheName: "apiimage",
+//     plugins: [
+//       new ExpirationPlugin({
+//         maxEntries: 30,
+//       }),
+//     ],
+//   })
+// );
 
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
