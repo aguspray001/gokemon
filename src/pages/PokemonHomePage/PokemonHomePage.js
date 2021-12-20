@@ -3,11 +3,12 @@ import { useQuery } from "@apollo/client";
 import { css } from "@emotion/react";
 import Loader from "components/atoms/Loader";
 import { POKEMON_LIST } from "graphql/query";
-import React, { useMemo } from "react";
+import React, { useMemo, Suspense } from "react";
 import { useAppContext } from "store/store";
-import Card from "../../components/atoms/Card";
 import { flex, flexCenter, flexCol } from "../../styles/utilities";
 import { GridContainer, GridItems } from "./style";
+
+const Card = React.lazy(()=>import("../../components/atoms/Card"))
 
 function PokemonHomePage() {
   const {state} = useAppContext();
@@ -93,13 +94,15 @@ function PokemonHomePage() {
                 css={GridItems}
                 key={`pokemon-${key}`}
               >
-                <Card
-                  number={key + 1}
-                  name={pokemon?.name}
-                  imgSource={`${pokemon.image}`}
-                  href={`/pokemon/${pokemon?.name}`}
-                  owned={countPokemon(pokemon?.name)}
-                />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Card
+                    number={key + 1}
+                    name={pokemon?.name}
+                    imgSource={`${pokemon.image}`}
+                    href={`/pokemon/${pokemon?.name}`}
+                    owned={countPokemon(pokemon?.name)}
+                  />
+                </Suspense>
               </div>
             );
           })}

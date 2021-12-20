@@ -77,6 +77,7 @@ function PokemonDetailsPage() {
             <img
               css={pokemonStyle(isCatched)}
               width={250}
+              height={250}
               src={pokemon?.sprites?.front_default}
               alt="pokemon"
             />

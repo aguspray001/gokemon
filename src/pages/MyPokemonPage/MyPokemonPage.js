@@ -1,12 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import ModalCollection from "components/molecules/ModalCollection";
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import { relasePokemonAction } from "store/action";
 import { useAppContext } from "store/store";
-import Card from "../../components/atoms/Card";
 import { flex, flexCenter, flexCol } from "../../styles/utilities";
 import { GridContainer, GridItems } from "../PokemonHomePage/style";
+
+const Card = React.lazy(()=>import("../../components/atoms/Card"))
 
 function MyPokemonPage() {
   const [selectPokemon, setSelectPokemon] = useState({
@@ -57,18 +58,20 @@ function MyPokemonPage() {
           {state?.collectedPokemon?.map((pokemonItem, key) => {
             return (
               <div css={GridItems} key={`pokemon-${key}`}>
-                <Card
-                  number={key + 1}
-                  name={pokemonItem?.name}
-                  imgSource={`${pokemonItem?.sprites?.front_default}`}
-                  href={`/pokemon/${pokemonItem?.name}`}
-                  owned={state.collectedPokemon.length}
-                  nickname={pokemonItem?.nickname}
-                  cardType="collection"
-                  onClick={() =>
-                    setSelectPokemon({ status: true, pokemon: pokemonItem })
-                  }
-                />
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Card
+                    number={key + 1}
+                    name={pokemonItem?.name}
+                    imgSource={`${pokemonItem?.sprites?.front_default}`}
+                    href={`/pokemon/${pokemonItem?.name}`}
+                    owned={state.collectedPokemon.length}
+                    nickname={pokemonItem?.nickname}
+                    cardType="collection"
+                    onClick={() =>
+                      setSelectPokemon({ status: true, pokemon: pokemonItem })
+                    }
+                  />
+                </Suspense>
               </div>
             );
           })}
